@@ -4,59 +4,12 @@ import { Card, Text, Metric, Grid, Title, Col } from "@tremor/react";
 import { Button, Stack } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import { Input } from "@chakra-ui/react";
+import { sampleData } from "./sampleData";
 
 function App() {
   const [cityName, setCityName] = useState("Mumbai");
   const [inputCityName, setInputCityName] = useState("");
-  const [data, setData] = useState({
-    coord: {
-      lon: 10.99,
-      lat: 44.34,
-    },
-    weather: [
-      {
-        id: 501,
-        main: "Rain",
-        description: "moderate rain",
-        icon: "10d",
-      },
-    ],
-    base: "stations",
-    main: {
-      temp: 298.48,
-      feels_like: 298.74,
-      temp_min: 297.56,
-      temp_max: 300.05,
-      pressure: 1015,
-      humidity: 64,
-      sea_level: 1015,
-      grnd_level: 933,
-    },
-    visibility: 10000,
-    wind: {
-      speed: 0.62,
-      deg: 349,
-      gust: 1.18,
-    },
-    rain: {
-      "1h": 3.16,
-    },
-    clouds: {
-      all: 100,
-    },
-    dt: 1661870592,
-    sys: {
-      type: 2,
-      id: 2075663,
-      country: "IT",
-      sunrise: 1661834187,
-      sunset: 1661882248,
-    },
-    timezone: 7200,
-    id: 3163858,
-    name: "Zocca",
-    cod: 200,
-  });
+  const [data, setData] = useState(sampleData);
   const [isLoading, setIsLoading] = useState(false);
   const API_KEY = process.env.REACT_APP_API_KEY;
 
