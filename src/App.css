@@ -2,3 +2,9 @@
   text-align: center;
 }
 
+.search-component{
+  display:flex;
+  justify-items: center;
+  justify-content: space-evenly;
+}
+
