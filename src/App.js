@@ -77,14 +77,14 @@ function App() {
 
   const handleInput = (e) => {
     const value = e.target.value;
-    if (value.length >= 1) {
-      setInputCityName(value);
-    } else {
+    if ((value.length === 0)) {
       toast({
         title: `Minimum character should be 1`,
         status: "error",
         isClosable: true,
       });
+    } else {
+      setInputCityName(value);
     }
   };
 
