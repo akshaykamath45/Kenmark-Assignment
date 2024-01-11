@@ -77,27 +77,20 @@ function App() {
 
   const handleInput = (e) => {
     const value = e.target.value;
-    if ((value.length === 0)) {
-      toast({
-        title: `Minimum character should be 1`,
-        status: "error",
-        isClosable: true,
-      });
-    } else {
-      setInputCityName(value);
-    }
+
+    setInputCityName(value);
   };
 
   const handleSearch = (e) => {
-    if (inputCityName.length >= 1) {
-      setCityName(inputCityName);
-      setInputCityName("");
-    } else {
+    if (inputCityName.length === 0) {
       toast({
         title: `Minimum character should be 1`,
         status: "error",
         isClosable: true,
       });
+    } else {
+      setCityName(inputCityName);
+      setInputCityName("");
     }
 
     console.log("inside on click of search button");
