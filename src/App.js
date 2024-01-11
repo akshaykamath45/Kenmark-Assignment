@@ -89,7 +89,7 @@ function App() {
   };
 
   const handleSearch = (e) => {
-    if (inputCityName.length > 1) {
+    if (inputCityName.length >= 1) {
       setCityName(inputCityName);
       setInputCityName("");
     } else {
@@ -112,7 +112,12 @@ function App() {
           getWeatherDataBasedOnLocation(latitude, longitude);
         },
         (error) => {
-          console.error("Error getting user's location: ", error.message);
+          console.error("Error getting user's location ", error.message);
+          toast({
+            title: `Please allow location access `,
+            status: "error",
+            isClosable: true,
+          });
         }
       );
     }
@@ -122,8 +127,17 @@ function App() {
   return (
     <div className="App">
       {isLoading === true ? (
-        <div>
-          <h1>Fetching Data</h1>
+        <div className="p-12">
+          <SearchBar
+            handleSearch={handleSearch}
+            onFetchUserLocation={fetchUsersLocation}
+            isLoading={isLoading}
+            inputCityName={inputCityName}
+            handleInput={handleInput}
+          ></SearchBar>
+          <h1 style={{ marginTop: "15px", fontSize: 30, color: "black" }}>
+            Fetching Data
+          </h1>
         </div>
       ) : (
         <div className="p-12">
