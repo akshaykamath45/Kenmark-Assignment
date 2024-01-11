@@ -1,13 +1,17 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import { useToast } from "@chakra-ui/react";
 import { sampleData } from "./sampleData";
 import { SearchBar } from "./components/SearchBar";
 import { WeatherCard } from "./components/WeatherCard";
+
 function App() {
   const [cityName, setCityName] = useState("Mumbai");
   const [inputCityName, setInputCityName] = useState("");
   const [data, setData] = useState(sampleData);
   const [isLoading, setIsLoading] = useState(false);
+
+  const toast = useToast();
   const API_KEY = process.env.REACT_APP_API_KEY;
 
   // fetching using city name
@@ -22,8 +26,19 @@ function App() {
         console.log(`data fetched for city ${cityName} `, responseData);
         setData(responseData);
         setIsLoading(false);
+        toast({
+          title: `Data fetched for city ${cityName}`,
+          status: "success",
+          isClosable: true,
+        });
       } else {
         console.log(`data cannot be fetched for ${cityName}`);
+        toast({
+          title: `City ${cityName} not found`,
+          status: "error",
+          isClosable: true,
+        });
+        setIsLoading(false);
       }
     } catch (e) {
       console.log("Error fetching data from server ", e);
@@ -39,12 +54,20 @@ function App() {
       );
       const responseData = await response.json();
       if (response.status === 200) {
-        console.log(`data fetched for city ${data.name} `, responseData);
-        setCityName(data.name);
+        console.log(
+          `data fetched for city ${responseData.name} `,
+          responseData
+        );
+        setCityName(responseData.name);
         setData(responseData);
         setIsLoading(false);
+        toast({
+          title: `Data fetched for city ${responseData.name}`,
+          status: "success",
+          isClosable: true,
+        });
       } else {
-        console.log(`data cannot be fetched for ${data.Name}`);
+        console.log(`data cannot be fetched for ${responseData.name}`);
       }
     } catch (e) {
       console.log("Error fetching data from server ", e);
@@ -59,12 +82,29 @@ function App() {
 
   const handleInput = (e) => {
     const value = e.target.value;
-    setInputCityName(value);
+    if (value.length >= 1) {
+      setInputCityName(value);
+    } else {
+      toast({
+        title: `Minimum character should be 1`,
+        status: "error",
+        isClosable: true,
+      });
+    }
   };
 
   const handleSearch = (e) => {
-    setCityName(inputCityName);
-    setInputCityName("");
+    if (inputCityName.length > 1) {
+      setCityName(inputCityName);
+      setInputCityName("");
+    } else {
+      toast({
+        title: `Minimum character should be 1`,
+        status: "error",
+        isClosable: true,
+      });
+    }
+
     console.log("inside on click of search button");
     console.log("input search city name : ", inputCityName);
   };
@@ -82,14 +122,14 @@ function App() {
       );
     }
   };
-  console.log("final data object : ", data);
+  // console.log("final data object : ", data);
 
   return (
     <div className="App">
-      <h1>Weather App</h1>
-
       {isLoading === true ? (
-        "Loading"
+        <div>
+          <h1>Fetching Data</h1>
+        </div>
       ) : (
         <div className="p-12">
           <SearchBar

@@ -21,6 +21,7 @@ export const SearchBar = ({
         width="auto"
         variant="outline"
         size="md"
+        required
       ></Input>
       <Stack direction="row" spacing={4} align="center">
         <Button onClick={handleSearch} colorScheme="blue">
