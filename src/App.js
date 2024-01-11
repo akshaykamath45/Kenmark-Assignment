@@ -61,11 +61,6 @@ function App() {
         setCityName(responseData.name);
         setData(responseData);
         setIsLoading(false);
-        toast({
-          title: `Data fetched for city ${responseData.name}`,
-          status: "success",
-          isClosable: true,
-        });
       } else {
         console.log(`data cannot be fetched for ${responseData.name}`);
       }
