@@ -2,6 +2,14 @@ import React from "react";
 import { Card, Text, Metric, Grid, Title, Col } from "@tremor/react";
 
 export const WeatherCard = ({ data }) => {
+  const baseUrl = "https://openweathermap.org/img/wn/";
+  const sunriseTime = new Date(data.sys.sunrise * 1000); // convert seconds to milliseconds
+  const sunsetTime = new Date(data.sys.sunset * 1000); // convert seconds to milliseconds
+
+  const formatTime = (time) => {
+    return time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  };
+
   return (
     <main className="p-12">
       <Title style={{ color: "black" }}>
@@ -16,17 +24,25 @@ export const WeatherCard = ({ data }) => {
             <Metric>Latitude {data.coord.lat}</Metric>
             <Metric>Longitude {data.coord.lon}</Metric>
             <Metric>City Name {data.name}</Metric>
-            <Metric>Sunrise {data.sys.sunrise}</Metric>
-            <Metric>Sunset {data.sys.sunset}</Metric>
+            <Metric>Sunrise {formatTime(sunriseTime)}</Metric>
+            <Metric>Sunset {formatTime(sunsetTime)}</Metric>
           </Card>
         </Col>
         <Card>
           <Text>Weather Condition</Text>
           {data.weather.map((elements, index) => (
             <div key={index}>
-              <Metric>Description {elements.description}</Metric>
-              <Metric>Main Condition {elements.main}</Metric>
-              <Metric>Icon {elements.icon}</Metric>
+              <Metric>
+                {elements.description.charAt(0).toUpperCase() +
+                  elements.description.slice(1)}
+              </Metric>
+
+              <Metric>
+                <img
+                  src={`${baseUrl}${elements.icon}@2x.png`}
+                  alt="Weather Icon"
+                />
+              </Metric>
             </div>
           ))}
         </Card>
