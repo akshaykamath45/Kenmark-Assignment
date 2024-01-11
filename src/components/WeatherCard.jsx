@@ -15,7 +15,7 @@ export const WeatherCard = ({ data }) => {
 
   return (
     <main className="p-12">
-      <Title style={{ color: "black" }}>
+      <Title style={{ color: "black", marginBottom: "15px" }}>
         Weather Data for {`${data.name}`}
       </Title>
 

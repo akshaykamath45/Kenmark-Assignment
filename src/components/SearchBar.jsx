@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Stack } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import { Input } from "@chakra-ui/react";
-
+import "./SearchBar.css";
 export const SearchBar = ({
   handleSearch,
   onFetchUserLocation,
@@ -22,8 +22,9 @@ export const SearchBar = ({
         variant="outline"
         size="md"
         required
+        className="search-input"
       ></Input>
-      <Stack direction="row" spacing={4} align="center">
+      <Stack direction="row" spacing={4} align="center" className="button">
         <Button onClick={handleSearch} colorScheme="blue">
           Search
         </Button>

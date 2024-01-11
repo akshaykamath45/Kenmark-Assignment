@@ -2,9 +2,10 @@
   text-align: center;
 }
 
-.search-component{
-  display:flex;
-  justify-items: center;
+.search-component {
+  display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
+
 
